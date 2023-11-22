@@ -229,9 +229,10 @@ module.exports = function streamManagement({
         resume: sm.allowResume ? "true" : undefined,
       }),
     );
-    const enabled = success
-      .getChild("bound", "urn:xmpp:bind:0")
-      ?.getChild("enabled", NS);
+    const bound = success.getChild("bound", "urn:xmpp:bind:0");
+    if (!bound) return; // Did a resume or something, don't need this
+
+    const enabled = bound?.getChild("enabled", NS);
     if (enabled) {
       if (sm.outbound_q.length > 0) {
         throw "Stream Management assertion failure, queue should be empty after enable";
