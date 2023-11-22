@@ -45,6 +45,7 @@ module.exports = function streamManagement({
   streamFeatures,
   entity,
   middleware,
+  sasl2,
 }) {
   let address = null;
   let timeoutTimeout = null;
@@ -140,40 +141,46 @@ module.exports = function streamManagement({
   // https://xmpp.org/extensions/xep-0198.html#enable
   // For client-to-server connections, the client MUST NOT attempt to enable stream management until after it has completed Resource Binding unless it is resuming a previous session
 
+  const resumeSuccess = (resumed) => {
+    sm.enabled = true;
+    if (address) entity.jid = address;
+    entity.status = "online";
+    const oldOutbound = sm.outbound;
+    for (let i = 0; i < resumed.attrs.h - oldOutbound; i++) {
+      let stanza = sm.outbound_q.shift();
+      sm.outbound++;
+      entity.emit("stream-management/ack", stanza);
+    }
+    let q = sm.outbound_q;
+    sm.outbound_q = [];
+    for (const item of q) {
+      entity.send(item); // This will trigger the middleware and re-add to the queue
+    }
+    entity.emit("stream-management/resumed");
+  };
+
+  const resumeFailed = () => {
+    sm.id = "";
+    sm.enabled = false;
+    let stanza;
+    while ((stanza = sm.outbound_q.shift())) {
+      entity.emit("stream-management/fail", stanza);
+    }
+    sm.outbound = 0;
+  };
+
   streamFeatures.use("sm", NS, async (context, next) => {
     // Resuming
     if (sm.id) {
       try {
-        let resumed = await resume(entity, sm.inbound, sm.id);
-        sm.enabled = true;
-        if (address) entity.jid = address;
-        entity.status = "online";
-        const oldOutbound = sm.outbound;
-        for (let i = 0; i < resumed.attrs.h - oldOutbound; i++) {
-          let stanza = sm.outbound_q.shift();
-          sm.outbound++;
-          entity.emit("stream-management/ack", stanza);
-        }
-        let q = sm.outbound_q;
-        sm.outbound_q = [];
-        for (const item of q) {
-          entity.send(item); // This will trigger the middleware and re-add to the queue
-        }
-        entity.emit("stream-management/resumed");
+        resumeSuccess(await resume(entity, sm.inbound, sm.id));
         return true;
         // If resumption fails, continue with session establishment
         // eslint-disable-next-line no-unused-vars
       } catch {
-        sm.id = "";
-        sm.enabled = false;
-        let stanza;
-        while ((stanza = sm.outbound_q.shift())) {
-          entity.emit("stream-management/fail", stanza);
-        }
-        sm.outbound = 0;
+        resumeFailed();
       }
     }
-
     // Enabling
 
     // Resource binding first
@@ -194,6 +201,46 @@ module.exports = function streamManagement({
       sm.max = response.attrs.max;
       // eslint-disable-next-line no-unused-vars
     } catch {
+      sm.enabled = false;
+    }
+
+    sm.inbound = 0;
+  });
+
+  sasl2?.inline("sm", NS, async (_, addInline) => {
+    if (sm.id) {
+      const success = await addInline(
+        xml("resume", { xmlns: NS, h: sm.inbound, previd: sm.id }),
+      );
+      const resumed = success.getChild("resumed", NS);
+      if (resumed) {
+        resumeSuccess(resumed);
+      } else {
+        resumeFailed();
+      }
+    }
+  });
+
+  sasl2?.bindInline(NS, async (addInline) => {
+    const success = await addInline(
+      xml("enable", {
+        xmlns: NS,
+        max: sm.preferredMaximum,
+        resume: sm.allowResume ? "true" : undefined,
+      }),
+    );
+    const enabled = success
+      .getChild("bound", "urn:xmpp:bind:0")
+      ?.getChild("enabled", NS);
+    if (enabled) {
+      if (sm.outbound_q.length > 0) {
+        throw "Stream Management assertion failure, queue should be empty after enable";
+      }
+      sm.outbound = 0;
+      sm.enabled = true;
+      sm.id = enabled.attrs.id;
+      sm.max = enabled.attrs.max;
+    } else {
       sm.enabled = false;
     }
 
