@@ -151,7 +151,7 @@ async function authenticate(
           { xmlns: FAST_NS, mechanism: credentials.requestToken },
           [],
         ),
-      credentials.fastCount &&
+      (credentials.fastCount || credentials.fastCount === 0) &&
         xml("fast", { xmlns: FAST_NS, count: credentials.fastCount }, []),
       ...sendInline,
     ]),
