@@ -7,7 +7,7 @@
   "version": "0.13.1",
   "license": "ISC",
   "dependencies": {
-    "@xmpp/connection": "^0.13.1",
+    "@xmpp/connection": "https://gitpkg.vercel.app/singpolyma/xmpp.js/packages/connection?main",
     "@xmpp/connection-tcp": "^0.13.1"
   },
   "keywords": [
