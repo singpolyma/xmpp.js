@@ -13,7 +13,7 @@
   "dependencies": {
     "@xmpp/error": "^0.13.0",
     "@xmpp/jid": "^0.13.1",
-    "@xmpp/xml": "^0.13.0",
+    "@xmpp/xml": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/xml?main",
     "koa-compose": "^4.1.0"
   },
   "engines": {

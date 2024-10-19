@@ -13,7 +13,7 @@
   "dependencies": {
     "@xmpp/events": "^0.13.0",
     "@xmpp/tls": "^0.13.1",
-    "@xmpp/xml": "^0.13.0"
+    "@xmpp/xml": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/xml?main",
   },
   "engines": {
     "node": ">= 14"

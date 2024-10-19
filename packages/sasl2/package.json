@@ -14,7 +14,7 @@
     "@xmpp/base64": "^0.13.0",
     "@xmpp/error": "^0.13.0",
     "@xmpp/jid": "^0.13.0",
-    "@xmpp/xml": "^0.13.0",
+    "@xmpp/xml": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/xml?main",
     "saslmechanisms": "^0.1.1"
   },
   "engines": {

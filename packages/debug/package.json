@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@xmpp/xml": "^0.13.0",
+    "@xmpp/xml": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/xml?main",
     "ltx": "^3.0.0"
   },
   "publishConfig": {
