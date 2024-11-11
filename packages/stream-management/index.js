@@ -160,6 +160,10 @@ module.exports = function streamManagement({
   };
 
   const resumeFailed = () => {
+    let stanza;
+    while ((stanza = sm.outbound_q.shift())) {
+      entity.emit("stream-management/fail", stanza);
+    }
     sm.id = "";
     sm.enabled = false;
     sm.outbound = 0;
