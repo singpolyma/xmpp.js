@@ -16,14 +16,14 @@
     "node": ">= 20.10"
   },
   "dependencies": {
-    "@xmpp/client": "^0.14.0",
-    "@xmpp/client-core": "^0.14.0",
-    "@xmpp/connection": "^0.14.0",
-    "@xmpp/debug": "^0.14.0",
-    "@xmpp/events": "^0.14.0",
-    "@xmpp/id": "^0.14.0",
-    "@xmpp/jid": "^0.14.0",
-    "@xmpp/xml": "^0.14.0",
+    "@xmpp/client": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/client?main",
+    "@xmpp/client-core": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/client-core?main",
+    "@xmpp/connection": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/connection?main",
+    "@xmpp/debug": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/debug?main",
+    "@xmpp/events": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/events?main",
+    "@xmpp/id": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/id?main",
+    "@xmpp/jid": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/jid?main",
+    "@xmpp/xml": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/xml?main",
     "ltx": "^3.1.2"
   },
   "publishConfig": {

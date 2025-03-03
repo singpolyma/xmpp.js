@@ -14,7 +14,7 @@
     "establishment"
   ],
   "dependencies": {
-    "@xmpp/xml": "^0.14.0"
+    "@xmpp/xml": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/xml?main"
   },
   "engines": {
     "node": ">= 20.10"

@@ -18,10 +18,10 @@
     "node": ">= 20.10"
   },
   "dependencies": {
-    "@xmpp/events": "^0.14.0",
-    "@xmpp/id": "^0.14.0",
-    "@xmpp/middleware": "^0.14.0",
-    "@xmpp/xml": "^0.14.0"
+    "@xmpp/events": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/events?main",
+    "@xmpp/id": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/id?main",
+    "@xmpp/middleware": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/middleware?main",
+    "@xmpp/xml": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/xml?main"
   },
   "publishConfig": {
     "access": "public"

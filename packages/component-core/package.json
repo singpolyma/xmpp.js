@@ -14,9 +14,9 @@
     "core"
   ],
   "dependencies": {
-    "@xmpp/connection-tcp": "^0.14.0",
-    "@xmpp/jid": "^0.14.0",
-    "@xmpp/xml": "^0.14.0"
+    "@xmpp/connection-tcp": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/connection-tcp?main",
+    "@xmpp/jid": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/jid?main",
+    "@xmpp/xml": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/xml?main"
   },
   "engines": {
     "node": ">= 20.10"

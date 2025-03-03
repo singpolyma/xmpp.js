@@ -9,9 +9,9 @@
   "type": "module",
   "main": "index.js",
   "dependencies": {
-    "@xmpp/connection": "^0.14.0",
-    "@xmpp/connection-tcp": "^0.14.0",
-    "@xmpp/events": "^0.14.0"
+    "@xmpp/connection": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/connection?main",
+    "@xmpp/connection-tcp": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/connection-tcp?main",
+    "@xmpp/events": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/events?main"
   },
   "keywords": [
     "XMPP",

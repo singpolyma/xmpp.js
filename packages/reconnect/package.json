@@ -13,7 +13,7 @@
     "reconnect"
   ],
   "dependencies": {
-    "@xmpp/events": "^0.14.0"
+    "@xmpp/events": "https://gitpkg-singpolyma.vercel.app/singpolyma/xmpp.js/packages/events?main"
   },
   "engines": {
     "node": ">= 20.10"
